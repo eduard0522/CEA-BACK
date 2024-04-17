@@ -3,12 +3,14 @@ import { config } from "dotenv";
 config()
 
 const configDB = {
-  host:process.env.DB_HOST || 'localhost',
-  database:process.env.DB_NAME || 'CEA',
-  user:process.env.DB_USER || 'root',
-  password:process.env.DB_PASS || '',
-  port:process.env.DB_PORT || 3306,
+  host:process.env.DB_HOST,
+  database:process.env.BD_NAME ,
+  user:process.env.DB_USER ,
+  password:process.env.DB_PASS,
+  port:process.env.DB_PORT 
 }
 
+
+console.log(configDB);
 export default configDB;
 
