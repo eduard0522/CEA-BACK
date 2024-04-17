@@ -30,6 +30,14 @@ INSERT INTO formularios(nombre,descripcion,formato_id) VALUES ('Indicador de exp
 
 INSERT INTO formularios(nombre,descripcion,formato_id) VALUES ('Perfil de riesgo(ORP)' , 'Formulario de perfil de riesgo(ORP)',1);
 
+INSERT INTO formularios (nombre,descripcion,formato_id) VALUES
+('datos especificos del explotador de servicios aéreos','formulario datos especificos del explotador de servicios aéreos',1);
+
+INSERT INTO formularios (nombre,descripcion,formato_id) VALUES
+('población tripulantes de vuelo', 'formulario de población tripulantes de vuelo',1);
+
+
+
 
 CREATE TABLE crierios_f_ide(
     id_criterio INT AUTO_INCREMENT PRIMARY KEY,
@@ -93,7 +101,9 @@ CREATE TABLE valores_referencia_ide
   INSERT INTO valores_referencia_ide (descripcion,valor_minimo,valor_maximo,IdE,id_formulario) VALUES ('muy bajo impacto en el sistema aeronáutico. Muy baja exposición a los peligros.',6,8,'A',1), ('bajo impacto en el sistema aeronáutico.Baja exposición a los peligros.',8,10,'B',1), ('impacto moderado en el sistema aeronáutico. Moderada exposición a los peligros.',10,12,'C',1), ('alto impacto en el sistema aeronáutico. Alta exposición a los peligros.',12,14,'D',1), ('muy alto impacto en el sistema aeronáutico. Muy alta exposición a los peligros.',14,17,'E',1);
 
 
-  
+
+  // Los datos se encuentran en el archivo createDatosBd, es un json con los archivos para hacer un ingreso masivo.
+
   CREATE TABLE parametros_f_orp(
   id INT AUTO_INCREMENT PRIMARY KEY,
   parametro text,
@@ -102,6 +112,8 @@ CREATE TABLE valores_referencia_ide
   FOREIGN KEY (id_formulario) REFERENCES formularios (id_formulario)
   );
 
+  // Los datos se encuentran en el archivo createDatosBd, es un json con los archivos para hacer un ingreso masivo.
+  
   CREATE TABLE nieveles_riesgo_orp(
   id INT AUTO_INCREMENT PRIMARY KEY,
   parametro_id INT,
@@ -121,6 +133,93 @@ CREATE TABLE valores_referencia_ide
     FOREIGN KEY (id_formulario) REFERENCES formularios(id_formulario)
 );
 
+insert into valores_referencia_orp(estado_operador,resutado_minimo,resultado_maximo,nivel_riesgo, id_formulario) VALUES 
+('más deseable',190, null,1,2),
+('deseable con observaciones',170, 190,2,2),
+('nivel de seguridad bajo',141, 169,3,2),
+('falta implementacion de medidas',101, 140,4,2),
+('debe tomar acciones correctivas',100, null,5,2);
+
+
+CREATE TABLE criterios_datos_explotador(
+    id_criterio  INT AUTO_INCREMENT PRIMARY KEY,
+    criterio text,
+    formulario_id INT,
+    FOREIGN KEY (formulario_id) REFERENCES formularios(id_formulario)
+);
+
+INSERT INTO criterios_datos_explotador(criterio,formulario_id) VALUES 
+('cantidad de estaciones/bases PPL',3),
+('aeronaves ',3),
+('cantidad de tripulaciones de vuelo',3),
+('cantidad de Examinadores y CHK del explotador (vuelo y simulador)',3),
+('cantidad de despachadores',3),
+('cantidad de simuladores y otros dispositivos de instrucción de vuelo',3);
+
+
+CREATE TABLE cantidad_criterios_explotador (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  valor_minimo INT,
+  valor_maximo INT,
+  muestra VARCHAR(50),
+  id_criterio INT,
+  FOREIGN KEY (id_criterio) REFERENCES criterios_datos_explotador(id_criterio)
+);
+
+INSERT INTO cantidad_criterios_explotador (valor_minimo,valor_maximo,muestra,id_criterio) VALUES
+(null,4,'1',1),
+(5,7,'falso',1),
+(8,null,'4',1),
+(1,6,'1',2),
+(7,12,'2',2),
+(13,29,'5',2),
+(1,10,'3',3),
+(11,20,'5',3),
+(21,50,'10',3),
+(51,100,'20',3),
+(101,500,'25',3),
+(501,100,'10%',3),
+(1001,1500,'10%',3),
+(1,200,'todos',4),
+(1,5,'3',5),
+(6,10,'5',5),
+(11,20,'10',5),
+(21,50,'10%',5),
+(1,50,'1 por academia',6);
+
+
+
+
+CREATE TABLE criterios_poblacion_tripulantes(
+	id_criterio INT auto_increment PRIMARY KEY,
+  criterio VARCHAR(255),
+  formulario_id INT,
+  FOREIGN KEY (formulario_id) REFERENCES formularios(id_formulario)
+);
+
+INSERT INTO criterios_poblacion_tripulantes (criterio, formulario_id) VALUES ('programar',4);
+
+CREATE TABLE cantidad_criterios_tripulantes (
+
+ id INT AUTO_INCREMENT PRIMARY KEY,
+  valor_minimo INT,
+  valor_maximo INT,
+  muestra INT,
+  id_criterio INT,
+  FOREIGN KEY (id_criterio) references criterios_poblacion_tripulantes(id_criterio)
+);
+
+
+INSERT INTO cantidad_criterios_tripulantes(valor_minimo,valor_maximo,muestra,id_criterio) VALUES
+(1,10,1,1),
+(11,20,4,1),
+(21,50,5,1),
+(51,100,10,1),
+(101,500,30,1),
+(501,1000,50,1),
+(1001,1500,100,1);
 */
+
+
 
 
