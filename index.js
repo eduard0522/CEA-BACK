@@ -1,6 +1,8 @@
 import express from 'express';
 import { config  } from 'dotenv';
 import { router } from './app.js';
+import hbs from 'handlebars';
+import path from 'path'
 
 /*****************   INICIA EL SERVIDOR ****************/
 const app = express();

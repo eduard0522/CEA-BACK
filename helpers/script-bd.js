@@ -9,11 +9,26 @@ CREATE TABLE usuarios(
 );
 
 
+INSERT INTO usuarios (nombre, correo , contrasenia, rol) VALUES ('eduard villamil','villamileduard0522@gmail.com','12345','Administrador');
+
+CREATE TABLE empresas (
+	id_empresa INT AUTO_INCREMENT PRIMARY KEY,
+  	nombre VARCHAR(255),
+  	telefono INT,
+  	correo VARCHAR(255),
+  	direccion VARCHAR (255),
+  	gerente_responsable text
+);
+
+
+INSERT INTO empresas (nombre,telefono,correo,direccion, gerente_responsable) VALUES ('Avianca', '320156854','avianca@gmail.com','Calle 120 # 53 - 20','Eduard villamil');
+
 create table formatos(
   id_formato INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(255),
   descripcion VARCHAR(255)
 );
+
 
 INSERT INTO formatos(nombre) VALUES ('RBS Planning es VF');
 
@@ -218,6 +233,46 @@ INSERT INTO cantidad_criterios_tripulantes(valor_minimo,valor_maximo,muestra,id_
 (101,500,30,1),
 (501,1000,50,1),
 (1001,1500,100,1);
+
+CREATE TABLE asignacion_formato_usuario (
+    id_asignacion INT auto_increment PRIMARY KEY,
+    id_usuario VARCHAR(100),
+    id_formato INT,
+    id_empresa INT,
+    fecha_asignacion DATETIME DEFAUlT CURRENT_TIMESTAMP ,
+    estado_asignacion ENUM ('ABIERTO', 'CERRADO','EN PROCESO') DEFAULT 'ABIERTO',
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_formato) REFERENCES formatos ()
+);
+
+
+CREATE TABLE resultados_usuarios(
+    id_resultado INT AUTO_INCREMENT PRIMARY KEY,
+    id_asignacion INT,
+    id_usuario VARCHAR(100),
+    id_formulario INT,
+    id_empresa INT,
+    resultado_final INT,
+    fecha_finalizacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_formulario) REFERENCES formularios(id_formulario),
+    FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa),
+     FOREIGN KEY (id_asignacion) REFERENCES asignacion_formato_usuario(id_asignacion)
+);
+
+
+CREATE TABLE progreso_respuestas (
+	id_progreso INT AUTO_INCREMENT PRIMARY KEY ,
+  id_formulario INT,
+  id_asignacion INT,
+  id_pregunta INT,
+  id_usuario VARCHAR(100),
+  estado boolean default false,
+  FOREIGN KEY (id_formulario) REFERENCES formularios (id_formulario),
+	FOREIGN KEY (id_asignacion) REFERENCES asignacion_formato_usuario(id_asignacion),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
+)
+
 */
 
 

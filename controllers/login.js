@@ -1,6 +1,7 @@
-import { getUserByUserController } from "./Users.js";
+
 import { comparePass } from "../helpers/handleBycript.js";
 import { generateToken } from "../helpers/handleJWT.js";
+import { getUserByCorreo } from "../services/Users.js";
 
 /***********************  Validacion de usuario   **************************/
 
@@ -13,12 +14,17 @@ export async function verifyDates(req,res){
     if(!correo || !clave){
       return res.status(400).json({message:"No pueden haber campos vacios, verifica la información ingresada e intenta nuevamente."});
     }
-    const getUser = await getUserByUserController(correo);
 
+    /**************   Envia la solicitud para traer los datos del usuario  ************/
+
+    const getUser = await getUserByCorreo(correo);
+    if(getUser === null) {
+      return res.status(404).json({status:404,message:'Error de autenticación , el usuario o la clave estan incorrectas.'});
+    }
     if(getUser.status === 500 ){
-
      return  res.status(500).json({status:500,message:'Ha ocurrido un error en el servidor, intenta de nuevo mas tarde.'});
 
+     
     }else if(getUser.status === 400){
       return  res.status(400).json({status:400,message:'Error de autenticación, usuario o clave incorrectas, verfica los datos e intenta nuevamente.'});
     }else{

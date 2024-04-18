@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getFormIdEController, getParamIdeController } from "../controllers/forms/formIdE.js";
 import { getFormOrpController, getTableOrpController } from "../controllers/forms/formORP.js";
+import {getUserFormsController, insertAnswerController } from '../controllers/forms/forms.js'
 
 export const routerForm = Router();
 
@@ -17,3 +18,15 @@ routerForm.get('/orp', getFormOrpController);
 routerForm.get('/orp/values',getTableOrpController);
 
 
+
+
+/***********  OBTIENE LOS FORMULARIOS ASIGNADOS AL USUARIO  ************/
+routerForm.get('/user' , getUserFormsController );
+
+
+
+/******************  INSERTA LA RESPUESTA DEL USUARIO Y ACTUALIZA SU ESTADO  *******************************/
+
+routerForm.post('/answer' , insertAnswerController);
+
+routerForm.get('/user/asnwers' , getAnswersUsers)
