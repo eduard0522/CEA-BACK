@@ -14,7 +14,6 @@ export async function getFormOrp(){
     ]);
     const data = { formulario:getForm[0], parametros_riesgo:getParams[0], niveles_riesgo: getLevels[0]}    
     releaseConnection(conn);
-    console.log(data);
     return data
 
   } catch (error) {
