@@ -25,7 +25,12 @@ export async function  getFormOrpController(req,res) {
       }
       FormData.push(resultDatos)
     })
-    return res.status(200).json({Formulario:getForm.formulario[0].descripcion,datosFormulario:FormData});
+    console.log(FormData[0]);
+    // return res.status(200).json({Formulario:getForm.formulario[0].descripcion,datosFormulario:FormData});
+    return res.render('inspector/formulario_VF',{
+      FormData
+    })
+
 
   } catch (error) {
     console.log(error);

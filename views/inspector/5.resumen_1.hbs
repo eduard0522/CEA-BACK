@@ -1,0 +1,158 @@
+<title> Resumen del primer formulario</title>
+<link rel="stylesheet" href="/css/resumen-vf.css">
+
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <img src="img/Logos/BLANCO.png" alt="" class="icon">
+      <div class="logo_name">CEA</div>
+      <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <i class='bx bx-search'></i>
+        <input type="search" placeholder="Buscar...">
+        <span class="tooltip">Buscar</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Inicio</span>
+        </a>
+        <span class="tooltip">Inicio</span>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class='bx bx-info-circle'></i>
+          <span class="links_name">Asignaciones</span>
+        </a>
+        <span class="tooltip">Asignaciones</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-history'></i>
+          <span class="links_name">Historial</span>
+        </a>
+        <span class="tooltip">Historial</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-cog'></i>
+          <span class="links_name">Ajustes</span>
+        </a>
+        <span class="tooltip">Ajustes</span>
+      </li>
+      <li class="profile">
+        <div class="profile-details">
+          <img src="profile.jpg" alt="profileImg">
+          <div class="name_job">
+            <div class="name">Jhoann Zamudio</div>
+            <div class="job">Inspector</div>
+          </div>
+        </div>
+        <a href="">
+          <i class='bx bx-log-out' id="log_out"></i>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+  <section class="home-section">
+    <header>
+      <p>Formulario VF tool book 1</p>
+      <div class="hora">
+        <span>19 de abril de 2024, </span>
+        <span>12:30 pm</span>
+      </div>
+    </header>
+
+
+    <main>
+      <h3>Perfil de riesgo de la organizacion (ORP)</h3>
+      <P class="informacion">Resumen del formulario anterior en base a las respuestas seleccionadas.</P>
+    </main>
+
+    <section class="resumen">
+      <h1>Resumen de actividad</h1>
+      <div class="contadores">
+        <h4>Puntaje total: <span>89,88</span></h4>
+        <h4>Nivel 3: <span>15</span></h4>
+        <h4>Nivel 2: <span>1</span></h4>
+        <h4>Nivel 1: <span>20</span></h4>
+        <h4>NA: <span>0</span></h4>
+      </div>
+
+      <table>
+        <tr>
+          <th>Estado del operador</th>
+        <th>Resultado de la evaluación</th>
+        <th>Nivel de riesgo</th>
+        </tr>
+        <tr>
+          <td>Mas deseable</td>
+          <td>>=200<237</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Deseable con observaciones</td>
+          <td>>=200<237</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Nivel de seguridad bajo</td>
+          <td>>=141<196</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Falta de implementacion de medidas</td>
+          <td>>=101<140</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Debe tomar acciones correctivas</td>
+          <td><100</td>
+          <td>5</td>
+        </tr>
+        
+      </table>
+      <div class="acumulado">
+         <h2>Categoria ORP del explotador de servicios aereos: <span>4,0</span></h2>
+         <div class="botones-form">
+          <button type="submit"><i class='bx bx-save' id="log_out"></i> Guardar</button>
+          <button type="submit">Siguiente <i class='bx bx-right-arrow-circle' id="log_out"></i></button>
+        </div>
+      </div>
+     
+    </section>
+ <footer>
+        <p>Hecho por SolutionCode grupo de desarroladores de Sotfware | Aeronautica Civil de Colombia | Deimos v1.0</p>
+      </footer>
+  </section>
+
+  <script>
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      menuBtnChange();//calling the function(optional)
+    });
+
+    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+      sidebar.classList.toggle("open");
+      menuBtnChange(); //calling the function(optional)
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+      if (sidebar.classList.contains("open")) {
+        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+      } else {
+        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
+      }
+    }
+  </script>
+</body>

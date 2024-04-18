@@ -1,0 +1,119 @@
+<title>Mis Asignaciones</title>
+<link rel="stylesheet" href="/css/asignaciones.css">
+
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+   <img src="img/Logos/BLANCO.png" alt="" class="icon">
+        <div class="logo_name">CEA</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+          <i class='bx bx-search' ></i>
+         <input type="search" placeholder="Buscar...">
+         <span class="tooltip">Buscar</span>
+      </li>
+      <li>
+        <a href="#" >
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Inicio</span>
+        </a>
+         <span class="tooltip">Inicio</span>
+      </li>
+      
+     <li>
+       <a href="#">
+         <i class='bx bx-info-circle' ></i>
+         <span class="links_name">Asignaciones</span>
+       </a>
+       <span class="tooltip">Asignaciones</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-history' ></i>
+         <span class="links_name">Historial</span>
+       </a>
+       <span class="tooltip">Historial</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-cog' ></i>
+         <span class="links_name">Ajustes</span>
+       </a>
+       <span class="tooltip">Ajustes</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <img src="profile.jpg" alt="profileImg">
+           <div class="name_job">
+             <div class="name">Jhoann Zamudio</div>
+             <div class="job">Inspector</div>
+           </div>
+         </div>
+         <a href="">
+         <i class='bx bx-log-out' id="log_out" ></i>
+        </a>
+     </li>
+    </ul>
+    
+  </div>
+  <section class="home-section">
+      <header>
+        <p>Sistema regional de cooperación para la vigilacion de la seguridad operacional, planificacion de la vigilancia basada en riesgos (OPS)</p>
+      </header>
+
+
+      <main>
+        <h3>Asignaciones:</h3>
+
+        <section class="panel">
+            <div class="box">
+                <img src="img/avianca.png" alt="">
+            </div>
+            <div class="box">
+              <img src="img/american.png" alt="">
+                
+            </div>
+            <div class="box">
+              <img src="img/wingo.png" alt="">
+               
+            </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Hecho por SolutionCode grupo de desarroladores de Sotfware | Aeronautica Civil de Colombia | Deimos v1.0</p>
+      </footer>
+  </section>
+
+
+
+
+
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+</body>

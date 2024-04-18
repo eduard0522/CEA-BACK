@@ -5,28 +5,24 @@ import {getUserFormsController, insertAnswerController } from '../controllers/fo
 
 export const routerForm = Router();
 
-/**************           RUTAS FORMULARIO IDE   ***************/
+/************** RUTAS FORMULARIO IDE   ***************/
 
-/*************  obtiene el formulario ide, junto a sus parametros y posibles respuestas   *********/
-routerForm.get('/ide', getFormIdEController)
-/*************  obtiene los valores de referencia del formulario ide ********************/
-routerForm.get('/ide/values',getParamIdeController);
 
 /*************  obtiene el formulario ORP , junto a sus parametros y posibles respuestas **********/
 routerForm.get('/orp', getFormOrpController);
+
+
+/*************  obtiene el formulario ide, junto a sus parametros y posibles respuestas   *********/
+routerForm.get('/ide', getFormIdEController)
+
+/*************  obtiene los valores de referencia del formulario ide ********************/
+routerForm.get('/ide/values',getParamIdeController);
+
 /*************  obtiene los valores de referencia del formulario ORP ********************/
 routerForm.get('/orp/values',getTableOrpController);
-
-
-
 
 /***********  OBTIENE LOS FORMULARIOS ASIGNADOS AL USUARIO  ************/
 routerForm.get('/user' , getUserFormsController );
 
-
-
 /******************  INSERTA LA RESPUESTA DEL USUARIO Y ACTUALIZA SU ESTADO  *******************************/
-
 routerForm.post('/answer' , insertAnswerController);
-
-routerForm.get('/user/asnwers' , getAnswersUsers)

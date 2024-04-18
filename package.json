@@ -2,10 +2,10 @@
   "name": "cea",
   "version": "1.0.0",
   "description": "",
-  "main": "index.cjs",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.cjs",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

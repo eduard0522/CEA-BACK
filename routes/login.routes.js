@@ -8,4 +8,6 @@ routerLogin.get('/', (req, res) => {
 });
 
 /*************** VALIDACION DE AUTENTICIDAD DE USUARIO ***************/
-routerLogin.post("/", verifyDates);
+routerLogin.post('/',verifyDates, (req, res) => {
+    res.render('index'); // Renderiza la vista login.hbs
+});
