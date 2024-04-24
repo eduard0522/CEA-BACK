@@ -356,9 +356,21 @@ main .informacion {
     list-style: none;
 }
 
+.form .li.contestada {
+   background-color: #055f2f;
+   color: #fff;
+}
+
+
+.form a{
+    text-decoration: none;
+    color: white;
+}
+
+
 .form .li.activo {
     background-color: var(--primario);
-    color: white;
+    color: rgb(20, 10, 68);
 }
 
 
@@ -492,6 +504,13 @@ button:hover{
   color: var(--blanco);
   background-color: var(--primario);
 }
+
+button:disabled:hover{
+    color: var(--negro);
+    background-color: var(--blanco);
+  }
+
+
 .form .bloque.activo {
     opacity: 1;
     -webkit-transform: translateY(0%);

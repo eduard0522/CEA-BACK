@@ -1,0 +1,22 @@
+<title>Mis Asignaciones</title>
+
+<body>
+  <main>
+    <button id="btn-form"> FORMULARIO VF </button>
+
+    <a href="./orp/status/1">VAMOS</a>
+  </main>
+</body>
+
+<script>
+  const btnForm = document.getElementById('btn-form');
+
+    btnForm.addEventListener('click' , async  (e) => {
+  
+    const res = await fetch('./orp/status/1',{
+      method:'GET',
+    });
+
+    console.log(await res);
+  })
+</script> 

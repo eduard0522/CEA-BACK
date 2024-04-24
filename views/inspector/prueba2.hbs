@@ -1,0 +1,69 @@
+ <title>Mis Asignaciones</title>
+
+<body>
+  
+  <main>
+    <ul id="list-params">
+      {{#each data}}
+          {{#if this.estado }}
+              <li class="li contestada"> <a href="../1/{{this.parametro.id}}">{{ this.parametro.id }}</a> </li>
+            {{else}}
+              <li class="li sinContestar">  <a href="../1/{{this.parametro.id}}">{{ this.parametro.id }}</a></li>
+          {{/if}}
+        {{/each}}
+  </ul>
+
+  <h2>Parametro {{param.id}}</h2>
+  <p>
+    {{param.parametro}}
+  </p>
+  <h2>Peso</h2>
+  {{param.peso}}
+  <div>
+
+    <h2>NIveles de riesgo </h2>
+
+    <ol>
+        {{#each level}}
+          <li> {{this.descripcion}}</li>
+          <p>Nivel de riesgo: {{this.nivel_riesgo}}</p>
+        {{/each}}
+    </ol>
+
+
+  </div>
+
+  </main>
+</body>
+
+
+
+<script>
+</script> 
+
+<style>
+  ul{
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+
+  ul li{
+    width: 60px;
+    text-align: center;
+    padding: .2rem;
+    border-radius: 50%;
+    border: 2px solid black;
+  }
+
+li.sinContestar{
+  background-color: rgb(240, 129, 129);
+  color: white;
+}
+
+li.contestada{
+  color: rgb(255, 255, 255);
+  background-color: rgb(97, 212, 52);
+}
+
+</style>

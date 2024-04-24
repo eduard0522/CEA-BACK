@@ -10,9 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var contador = document.getElementById("contador2");
     contador.textContent = enviadas.length;
-
-
-
     // Obtener la tabla
     var tabla = document.getElementById("tablaf");
     var tablae = document.getElementById("tablae");

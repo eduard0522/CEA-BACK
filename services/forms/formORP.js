@@ -7,12 +7,13 @@ import { getConnection, releaseConnection } from "../../config/connectDB.js";
 export async function getFormOrp(){
   try {
     const conn = await getConnection();
-    const[ getForm, getParams, getLevels] = await Promise.all([
+    const[ getForm, getParams, getLevels,getResponseProgress] = await Promise.all([
       conn.query('SELECT * FROM formularios WHERE id_formulario = 2'),
-      conn.query('SELECT * FROM parametros_f_orp WHERE id_formulario = 1'),
-      conn.query('SELECT * FROM nieveles_riesgo_orp')
+      conn.query('SELECT * FROM parametros_f_orp WHERE id_formulario = 2'),
+      conn.query('SELECT * FROM nieveles_riesgo_orp'),
+      conn.query('SELECT id_pregunta , id_respuesta, estado FROM progreso_respuestas WHERE id_asignacion = 1 and id_formulario = 2')
     ]);
-    const data = { formulario:getForm[0], parametros_riesgo:getParams[0], niveles_riesgo: getLevels[0]}    
+    const data = { formulario:getForm[0], parametros_riesgo:getParams[0], niveles_riesgo: getLevels[0], Estado : getResponseProgress[0] }    
     releaseConnection(conn);
     return data
 
@@ -22,6 +23,60 @@ export async function getFormOrp(){
   }
 }
 
+/********************************   OBTIENE UNA PREGUNTA ESPECIFICA DEL FROMULARIO CON SUS ATRIBUTOS POR ID de pregunta  ****************************/
+
+export async function getAnswer(idPregunta) {
+  
+  try {
+    if(!idPregunta ) return null
+    const conn = await getConnection();
+
+    const[  getParam, getLevels] = await Promise.all([
+      conn.query('SELECT * FROM parametros_f_orp WHERE id_formulario = 2 and id = ?',[idPregunta]),
+      conn.query('SELECT * FROM nieveles_riesgo_orp WHERE parametro_id = ?',[idPregunta])
+
+    ]);
+
+    if(!getParam) return null
+   
+    const data = { Parametro:getParam[0], niveles_riesgo: getLevels[0]}    
+    releaseConnection(conn);
+
+    return data;
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+/********************************   OBTIENE TODOS LOS  ID DE LOS PARAMETROS Y SU ESTADO DE PROGRESO POR ID de asignación, y una pregunat especifica por ID ****************************/
+
+export async function getParamsStatus(idAsignacion,idPregunta) {
+  
+  try {
+    if( !idAsignacion || !idPregunta) return null
+    const conn = await getConnection();
+
+    const[  getParams,getResponseProgress,getParam, getLevels] = await Promise.all([
+      conn.query('SELECT id FROM parametros_f_orp '),
+      conn.query('SELECT  id_pregunta,estado FROM progreso_respuestas WHERE id_asignacion = ? and id_formulario = 2',[idAsignacion]),
+      conn.query('SELECT * FROM parametros_f_orp WHERE id_formulario = 2 and id = ?',[idPregunta]),
+      conn.query('SELECT * FROM nieveles_riesgo_orp WHERE parametro_id = ?',[idPregunta])
+    ]);
+
+    if( !getParams || !getResponseProgress || !getParam || !getLevels) return null
+   
+    const data = { Parametros:getParams[0],Estado:getResponseProgress[0] , Parametro:getParam[0] , Niveles: getLevels[0]}    
+    releaseConnection(conn);
+
+    return data;
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 
 

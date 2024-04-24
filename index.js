@@ -3,12 +3,16 @@ import { config } from 'dotenv';
 import { router } from './app.js';
 import path, { resolve } from 'path';
 import exphbs from 'express-handlebars'; // Importa express-handlebars para usar como motor de plantillas
+import morgan from 'morgan';
+
+
 
 // Inicializa la aplicación Express
 const app = express();
 
 // Configuración de middleware
 app.use(express.json());
+app.use(morgan('dev'))
 app.use(router);
 app.use(express.static(path.join(path.resolve(), 'public')));
 

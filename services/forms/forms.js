@@ -22,14 +22,14 @@ export async function getUserForm(user){
 }
 
 
-/************************** ENVIA LAS RESPUESTAS DE CADA FORMULARIO REALIZADO POR EL USUARIO * ************************/
+/************************** INSERTA LAS RESPUESTAS USUARIO Y CAMBIA SU ESTADO  ************************/
 
 export async function insertAnswer(data) {
   try {
       if(!data){
         return null
       }
-      const {id_formulario , id_asignacion , id_pregunta , id_respuesta,id_usuario , estado} = data
+      const { id_formulario , id_asignacion , id_pregunta , id_respuesta, id_usuario , estado} = data
 
       const conn = await getConnection();
 
@@ -49,6 +49,3 @@ export async function insertAnswer(data) {
 };
 
 /*****************************  trae el progreso de las respuestas de los usuarios      ****************************/
-
-
-
