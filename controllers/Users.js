@@ -44,10 +44,12 @@ export async function getAllUsersController (req,res){
     const getUsers = await getAllUsers();
 
     if(getUsers === null){
-      return res.json({status:500, message:'Ha ocurrido un error inesperado, intente de nuevo mas tarde.'});
+      return res.json({status:404, message:'No hay usuarios diponibles jeje.'});
     }
-
-    return res.json({usuarios:getUsers})
+    console.log(getUsers);
+    return res.render('inspector/inicio1',{
+      usuarios: getUsers
+    })
   } catch (error) {
     return res.json({status:500 , message:'Ha ocurrido un error en el servidor.'});  }
 }

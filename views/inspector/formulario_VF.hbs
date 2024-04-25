@@ -23,7 +23,7 @@
       </li>
 
       <li>
-        <a href="#">
+        <a href="/">
           <i class='bx bx-info-circle'></i>
           <span class="links_name">Asignaciones</span>
         </a>
@@ -222,7 +222,13 @@
             </div>
           </div>
         </form>
-        <div class="bloque">3</div>
+        <div class="bloque">
+          <ul>
+            {{#each allDates}}
+            <li>{{parametro}}</li>
+            {{/each}}
+          </ul>
+        </div>
         <div class="bloque">4</div>
         <div class="bloque">5</div>
         <div class="bloque">6</div>

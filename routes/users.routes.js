@@ -6,10 +6,16 @@ export const userRouter = Router();
 
 /****************  Solicitudes GET  ***************/
 
-userRouter.get('/' ,validateToken,getAllUsersController);
+userRouter.get('/validate-user' ,validateToken,getAllUsersController);
 
 /****************** Solicitudes POST  ************/
 
  /*****************  CREAR USUARIOS  *************/
 userRouter.post('/', createUserController );
+
+
+// ENTRA AL PERFIL INSPECTOR (INDEX)
+userRouter.get('/user-inspector', (req, res)=>{
+    res.render('inspector/inicio1')
+})
  
