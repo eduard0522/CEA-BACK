@@ -1,0 +1,99 @@
+<title>Mis Asignaciones</title>
+<link rel="stylesheet" href="/css/asignaciones.css">
+
+<body>
+  {{>panel }}
+  <section class="home-section">
+      <header>
+        <p>Sistema regional de cooperación para la vigilacion de la seguridad operacional, planificacion de la vigilancia basada en riesgos (OPS)</p>
+      </header>
+
+
+      <main>
+        <h3>Asignaciones:</h3>
+
+        <section class="panel">
+
+        </section>
+      </main>
+
+      <footer>
+        <p>Hecho por SolutionCode grupo de desarroladores de Sotfware | Aeronautica Civil de Colombia | Deimos v1.0</p>
+      </footer>
+  </section>
+
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  const d = document;
+
+   d.addEventListener('DOMContentLoaded' , async  (e) => {
+    const Token  = localStorage.getItem('Token');
+    const id = localStorage.getItem('id');
+    const panel = d.querySelector('.panel');
+    const data = await  getEmpresas(Token,id);
+
+    const empresas = data.data.Empresas;
+
+  for( const empresa of empresas){
+
+      const empresaHtml = `
+      <div class="card">
+          <h2> ${empresa.nombre} </h2>
+          <div class="box" id=${empresa.id_empresa}>
+            <img src="/img/${empresa.image_url}.png" alt="imagen alusiva a la empresa">
+         </div>
+      </div>
+        
+        
+      `
+      panel.innerHTML = empresaHtml;
+    } 
+  
+
+  })
+
+  async function getEmpresas(token,id){
+      try{
+        const data = {
+          id,
+          token
+        }
+        let res = await fetch( `/users/inicio/${id}`, {
+          method : 'POST',
+          headers:{
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        let resJson = await res.json();
+
+        return resJson;
+      }catch(error){
+          console.log(error)
+      }
+  }
+
+
+  </script>
+</body>

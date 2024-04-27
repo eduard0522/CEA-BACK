@@ -311,10 +311,15 @@ header .hora {
     gap: 20px;
     flex-wrap: wrap;
 }
+.panel a {
+    width: 30%;
+    text-decoration: none;
+    color: var(--azul);
+}
 
 .panel .box {
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-    width: 30%;
+    width: 100%;
     height: 130px;
     border-radius: 8px;
     display: flex;
@@ -346,26 +351,26 @@ header .hora {
 
 .balance {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 100px;
 }
 
 .balance .caja {
     margin: 10px 20px;
-    padding: 20px;
-    height: 300px;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     border-radius: 15px;
     font-size: 25px;
     font-weight: 500;
+    margin-bottom: 2rem;
 }
 
 .balance .grafica {
-    width: 60%;
+   width: 420px;
 }
 
 .balance .calendario {
-    width: 40%;
+    width: auto;
 }
 
 footer {

@@ -21,6 +21,118 @@
 
 
     {{{script}}}
+     <script>
+    'use strict'
+    const li = document.querySelectorAll('.li')
+    const bloque = document.querySelectorAll('.bloque');
+    
+    let parametroId = document.getElementById('parametro_id').textContent;
+    let numberId = parseInt(parametroId);
+    const btnSave = document.querySelector('.btnGuardar');
+    
+    if( li[numberId - 1].matches('.contestada')){
+        btnSave.setAttribute('disabled' , 'true');
+    }
+    // CLICK en li
+    // TODOS .li quitar la clase activo
+    // TODOS .bloque quitar la clase activo
+    // .li con la posicion se añadimos la clase activo
+    // .bloque con la posicion se añadimos la clase activo
+
+    // Recorriendo todos los LI
+    li.forEach((cadaLi, i) => {
+      // Asignando un CLICK a CADALI
+      li[i].addEventListener('click', () => {
+
+        // Recorrer TODOS los .li
+        li.forEach((cadaLi, i) => {
+          // Quitando la clase activo de cada li
+          li[i].classList.remove('activo')
+          // Quitando la clase activo de cada bloque
+        //  bloque[i].classList.remove('activo') -//
+        })
+
+        // En el li que hemos click le añadimos la clase activo
+        li[i].classList.add('activo')
+        // En el bloque con la misma posición le añadimos la clase activo
+       //  bloque[i].classList.add('activo')
+
+      })
+    })
+
+    document.addEventListener('submit' , (e) => {
+
+      e.preventDefault();
+
+      let formId = e.target.dataset.idForm;
+      let FormAnswer = document.getElementById('FormAnswer');
+      let respuestaId = document.getElementById('respuesta-id').dataset.respuestaId
+      const data = {
+        "id_formulario" : formId  ,
+        "id_asignacion" : 1 ,
+        "id_pregunta" : numberId, 
+        "id_respuesta" : respuestaId, 
+        "id_usuario" : 1 , 
+        "estado" : true,
+      }  
+
+      sendAsnwer(data);
+  
+    })
+
+
+    async function sendAsnwer (data) {
+
+        try{
+            const res = await fetch('http://localhost:9876/forms/answer', {
+              method : 'POST',
+              headers:{
+                'Content-Type' : 'application/json'
+              },
+              body:JSON.stringify(data),
+            });
+
+            const jsonData = await res.json();
+            alert('Respuesta registrada con éxito.')
+            console.log(jsonData);
+            location.reload();
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+  </script>
+
+  <script>
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
    
+  
+
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      menuBtnChange();//calling the function(optional)
+    });
+
+    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+      sidebar.classList.toggle("open");
+      menuBtnChange(); //calling the function(optional)
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+      if (sidebar.classList.contains("open")) {
+        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+      } else {
+        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
+      }
+    }
+
+
+
+
+  </script>
 </body>
 </html>

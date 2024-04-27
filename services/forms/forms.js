@@ -3,8 +3,6 @@ import { getConnection , releaseConnection } from "../../config/connectDB.js";
 
 
 /*********************** OBTIENE LOS FORMULARIOS QUE TIENE ASIGNADOS LOS USUARIOS *******************************/
-
-
 export async function getUserForm(user){
   try {
     const conn = await getConnection();
@@ -20,10 +18,7 @@ export async function getUserForm(user){
     return null;
   }
 }
-
-
 /************************** INSERTA LAS RESPUESTAS USUARIO Y CAMBIA SU ESTADO  ************************/
-
 export async function insertAnswer(data) {
   try {
       if(!data){
@@ -48,4 +43,34 @@ export async function insertAnswer(data) {
   }
 };
 
-/*****************************  trae el progreso de las respuestas de los usuarios      ****************************/
+/***************************** Fomatos asignados al usuario por empresa  ****************************/
+
+export async function getFormat(user,company){
+  try {
+    const conn = await getConnection();
+    const [getForms] = await conn.query('SELECT * FROM asignacion_formato_usuario WHERE id_usuario = ? and id_empresa = ? ' , [user, company]);
+
+    if(!getForms){
+      return null;
+    }
+    const formatos = [];
+    const formularios = [];
+
+    for(const formato of getForms ){
+      const [getFormat, getFormDate] = await Promise.all([
+        conn.query('SELECT * FROM formatos WHERE id_formato =  ? ', [formato.id_formato]),
+        conn.query( 'SELECT * FROM formularios WHERE formato_id =  ?' , [formato.id_formato])
+      ]);
+
+      formatos.push(getFormat[0]);
+      formularios.push(getFormDate[0]);
+    }
+    releaseConnection(conn)
+
+    const data = { formatos ,formularios }
+    return data;
+  } catch (error) {
+    console.log(error)
+    return null;
+  }
+}

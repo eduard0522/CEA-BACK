@@ -1,4 +1,5 @@
 
+import { query } from "express";
 import { getConnection, releaseConnection } from "../config/connectDB.js"
 
 /*********************  CREAR USUARIOS  ******************/
@@ -59,5 +60,36 @@ export async function getUserByCorreo (correo) {
   } catch (error) { 
     console.log(error);
     return  null
+  }
+}
+
+
+export async function  getCompaniesUser(idUser)  {
+  try {
+    if(!idUser) return null;
+    console.log(idUser)
+    const conn = await getConnection();
+
+    const getCompanys = await  conn.query('SELECT * FROM empresaxusuario WHERE id_usuario = ?',[idUser]);
+  
+    if( !getCompanys) return null;
+     
+    const companies =   getCompanys[0];
+
+    const companiesDates = [];
+
+    for( const companie of companies ){
+     const [getDatesCompanies] = await conn.query('SELECT * FROM empresas WHERE id_empresa = ?' , [ companie.id_empresa]);
+      companiesDates.push(getDatesCompanies);
+    }
+
+    const dataUser = {Asignaciones: getCompanys[0] , Empresas: companiesDates[0] }
+    
+    releaseConnection(conn);
+    return  dataUser;
+
+  } catch (error) {
+    console.log(error ,' /**********  services user ***********/');
+    return null;
   }
 }

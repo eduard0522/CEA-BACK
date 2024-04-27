@@ -9,9 +9,9 @@ export const router = Router();
 /**********   MANEJO DE RUTAS  ************/
 
 router.use('/', routerLogin);
-
 router.use('/users',userRouter);
 router.use('/forms',routerForm)
+
 
 /* createLevels(nivelesRiesgo) */
 

@@ -39,6 +39,7 @@ export async function getAnswer(id) {
       conn.query('SELECT * FROM calificacion_criterios_ide WHERE id_criterio = ?',[id]),
     ]);
 
+
     if(!getCriterio || !getCalificacion) return null
    
     const data = { criterio:getCriterio[0], calificacion: getCalificacion[0]}    

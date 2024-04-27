@@ -311,7 +311,7 @@
 .panel .box {
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     width: 30%;
-    height: 180px;
+    height: 280px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -346,6 +346,18 @@
     cursor: pointer;
     color: var(--primario);
     z-index: 1;
+}
+.panel .box ul{
+    list-style: none;
+    padding: .5rem;
+}
+.panel .box li{
+    margin-bottom: .5rem;
+}
+.panel .box li a{
+    text-decoration: none;
+    color: inherit;
+   
 }
 
 .button:before {

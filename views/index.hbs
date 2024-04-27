@@ -1,5 +1,6 @@
 <title> Iniciar Sesion</title>
 <link rel="stylesheet" href="/css/login.css">
+
 <body>
     <main class="contenedor">
         <section class="left">
@@ -11,21 +12,21 @@
             <h2>Iniciar Sesion</h2>
 
             <div class="wave-group">
-                <form action="#" method="post">
-                <input required="" type="text" class="input">
+                <form>
+                <input required="" type="text" class="input" name="correo">
                 <span class="bar"></span>
                 <label class="label">
-                  <span class="label-char" style="--index: 0">U</span>
-                  <span class="label-char" style="--index: 1">s</span>
-                  <span class="label-char" style="--index: 2">u</span>
-                  <span class="label-char" style="--index: 3">a</span>
-                  <span class="label-char" style="--index: 4">r</span>
-                  <span class="label-char" style="--index: 5">i</span>
-                  <span class="label-char" style="--index: 6">o</span>
+                  <span class="label-char" style="--index: 0">C</span>
+                  <span class="label-char" style="--index: 1">o</span>
+                  <span class="label-char" style="--index: 2">r</span>
+                  <span class="label-char" style="--index: 3">r</span>
+                  <span class="label-char" style="--index: 4">e</span>
+                  <span class="label-char" style="--index: 5">o</span>
+                  <span class="label-char" style="--index: 6"></span>
                 </label>
               </div>
               <div class="wave-group">
-                <input required="" type="text" class="input">
+                <input required="" type="text" class="input" name="clave"> 
                 <span class="bar"></span>
                 <label class="label">
                     <span class="label-char" style="--index: 0">C</span>
@@ -41,7 +42,7 @@
                 </label>
               </div>
               <p><a href="#">¿olvidaste tu contraseña?</a></p>
-              <button class="button">Entrar</button>
+              <button type="submit" class="button"  id="sendForm">Entrar</button>
             </form>
               <footer>
                 <hr>
@@ -51,3 +52,44 @@
         </section>
     </section>
 </body>
+
+
+<script>
+  const d =  document;
+  const formLogin = d.querySelector('form');
+
+  async function Login (data,id) {
+  const res = await fetch('/' , {
+    method: 'POST',
+    headers : {
+      "Content-Type" : "application/json", 
+    },
+    body:JSON.stringify(data)
+  });
+  const resJson = await res.json();
+  if(resJson.status === 200){
+    const Token  = localStorage.setItem('Token' , resJson.token);
+    const usuario  = localStorage.setItem('Usuario' , resJson.dates.usuario);
+    const id  = localStorage.setItem('id' , resJson.idUsuario);
+    const rol  = localStorage.setItem('rol' , resJson.dates.rol);
+
+    location.href = `/users/inicio`
+
+  }else(
+    console.log('Error de autenticación')
+  );
+
+
+}
+  d.addEventListener('submit' , (e) => {
+    e.preventDefault();
+    const correo = e.target.correo.value;
+    const clave = e.target.clave.value
+    console.log(correo , clave);
+    data = {
+      correo,
+      clave
+    };
+    Login(data);
+  });
+</script>

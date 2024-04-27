@@ -1,0 +1,167 @@
+<title>Bienvenido Inspector</title>
+<link rel="stylesheet" href="/css/inspector.css">
+<link rel="stylesheet" href="/css/calendario.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+<body>
+  {{>panel }}
+  <section class="home-section">
+      <header>
+        <p>Bienvenido nuevamente, <span id="userName"></span></p>
+        <div class="hora">
+            <span>12:30 pm</span>
+        </div>
+      </header>
+
+
+      <main>
+        <h3>Dashboard | Overview</h3>
+
+        <section class="panel">
+          <a href="./asignaciones">
+              <div class="box">
+                <div class="cant">
+                    <i class='bx bx-info-circle'> </i> <span id="asignaciones"></span>
+                </div>
+                <p>Asignaciones</p>
+            </div>
+          </a>
+          <a href="">
+             <div class="box">
+                <div class="cant">
+                    <i class='bx bx-cube'></i><span>20</span>
+                </div>
+                <p>Actividades</p>
+            </div>
+          </a>
+          <a href="">
+              <div class="box">
+                <div class="cant">
+                    <i class='bx bx-history'></i><span>24</span>
+                </div>
+                <p>Entregados</p>
+            </div>
+          </a>
+        </section>
+      </main>
+
+      <main>
+        <h3>Balance de actividades</h3>
+
+        <div class="balance">
+            <div class="grafica caja">
+               <div>
+                     <canvas id="myChart"></canvas>
+                </div>
+            </div>
+
+            <div class="calendario caja">
+                 <div class="wrapper">
+                      <header>
+                        <p class="current-date"></p>
+                        <div class="icons">
+                          <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                          <span id="next" class="material-symbols-rounded">chevron_right</span>
+                        </div>
+                      </header>
+
+                      <div class="calendar">
+                        <ul class="weeks">
+                          <li>Sun</li>
+                          <li>Mon</li>
+                          <li>Tue</li>
+                          <li>Wed</li>
+                          <li>Thu</li>
+                          <li>Fri</li>
+                          <li>Sat</li>
+                        </ul>
+                        <ul class="days"></ul>
+                      </div>
+                    </div>
+            </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Hecho por SolutionCode grupo de desarroladores de Sotfware | Aeronautica Civil de Colombia | Deimos v1.0</p>
+      </footer>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="/js/calendario.js" ></script>
+
+
+
+  <script>
+
+    const d =  document;
+  let sidebar = d.querySelector(".sidebar");
+  let closeBtn = d.querySelector("#btn");
+  let searchBtn = d.querySelector(".bx-search");
+  let userSpan = d.getElementById('userName');
+  let userProfile = d.getElementById('profileName');
+  let rolUser = d.getElementById('rolUser');
+  let userName = localStorage.getItem('Usuario');
+  let rol= localStorage.getItem('rol');
+
+  userSpan.textContent = userName;
+  userProfile.textContent = userName;
+  rolUser.textContent = rol;
+
+  closeBtn.addEventListener("click", ()=>{ 
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+
+
+  d.addEventListener('DOMContentLoaded' , async  (e) => {
+    const Token  = localStorage.getItem('Token');
+    const asignaciones = d.getElementById('asignaciones');
+    const id = localStorage.getItem('id');
+      
+    const data = await  getEmpresas(Token,id);
+    console.log(data)
+    asignaciones.textContent = data.data.Asignaciones.length
+  })
+
+
+  async function getEmpresas(token,id){
+      try{
+        const data = {
+          id,
+          token
+        }
+        let res = await fetch( `/users/inicio/${id}`, {
+          method : 'POST',
+          headers:{
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        let resJson = await res.json();
+       
+
+        return resJson;
+      }catch(error){
+          console.log(error)
+      }
+  }
+  </script>
+
+  
+</body>

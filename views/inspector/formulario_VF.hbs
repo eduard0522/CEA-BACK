@@ -2,66 +2,12 @@
 <link rel="stylesheet" href="/css/vf.css">
 
 <body>
-  <div class="sidebar">
-      <div class="logo-details">
-        <img src="/img/Logos/BLANCO.png" alt="" class="icon">
-        <div class="logo_name">CEA</div>
-        <i class='bx bx-menu' id="btn"></i>
-      </div>
-      <ul class="nav-list">
-        <li>
-          <i class='bx bx-search'></i>
-          <input type="search" placeholder="Buscar...">
-          <span class="tooltip">Buscar</span>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-grid-alt'></i>
-            <span class="links_name">Inicio</span>
-          </a>
-          <span class="tooltip">Inicio</span>
-        </li>
-
-        <li>
-          <a href="#">
-            <i class='bx bx-info-circle'></i>
-            <span class="links_name">Asignaciones</span>
-          </a>
-          <span class="tooltip">Asignaciones</span>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-history'></i>
-            <span class="links_name">Historial</span>
-          </a>
-          <span class="tooltip">Historial</span>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-cog'></i>
-            <span class="links_name">Ajustes</span>
-          </a>
-          <span class="tooltip">Ajustes</span>
-        </li>
-        <li class="profile">
-          <div class="profile-details">
-            <img src="profile.jpg" alt="profileImg">
-            <div class="name_job">
-              <div class="name">Jhoann Zamudio</div>
-              <div class="job">Inspector</div>
-            </div>
-          </div>
-          <a href="">
-            <i class='bx bx-log-out' id="log_out"></i>
-          </a>
-        </li>
-    </ul>
-  </div>
-
+  
+{{>panel }}
 
   <section class="home-section">
       <header>
-        <p>Formulario VF tool book 1</p>
+        <p>Formulario VF tool book 1000</p>
         <div class="hora">
           <span>19 de abril de 2024, </span>
           <span>12:30 pm</span>
@@ -143,117 +89,5 @@
 
 
 
-  <script>
-    'use strict'
-    const li = document.querySelectorAll('.li')
-    const bloque = document.querySelectorAll('.bloque');
-    
-    let parametroId = document.getElementById('parametro_id').textContent;
-    let numberId = parseInt(parametroId);
-    const btnSave = document.querySelector('.btnGuardar');
-    
-    if( li[numberId - 1].matches('.contestada')){
-        btnSave.setAttribute('disabled' , 'true');
-    }
-    // CLICK en li
-    // TODOS .li quitar la clase activo
-    // TODOS .bloque quitar la clase activo
-    // .li con la posicion se añadimos la clase activo
-    // .bloque con la posicion se añadimos la clase activo
 
-    // Recorriendo todos los LI
-    li.forEach((cadaLi, i) => {
-      // Asignando un CLICK a CADALI
-      li[i].addEventListener('click', () => {
-
-        // Recorrer TODOS los .li
-        li.forEach((cadaLi, i) => {
-          // Quitando la clase activo de cada li
-          li[i].classList.remove('activo')
-          // Quitando la clase activo de cada bloque
-        //  bloque[i].classList.remove('activo') -//
-        })
-
-        // En el li que hemos click le añadimos la clase activo
-        li[i].classList.add('activo')
-        // En el bloque con la misma posición le añadimos la clase activo
-       //  bloque[i].classList.add('activo')
-
-      })
-    })
-
-    document.addEventListener('submit' , (e) => {
-
-      e.preventDefault();
-
-      let formId = e.target.dataset.idForm;
-      let FormAnswer = document.getElementById('FormAnswer');
-      let respuestaId = document.getElementById('respuesta-id').dataset.respuestaId
-      const data = {
-        "id_formulario" : formId  ,
-        "id_asignacion" : 1 ,
-        "id_pregunta" : numberId, 
-        "id_respuesta" : respuestaId, 
-        "id_usuario" : 1 , 
-        "estado" : true,
-      }  
-
-      sendAsnwer(data);
-  
-    })
-
-
-    async function sendAsnwer (data) {
-
-        try{
-            const res = await fetch('http://localhost:9876/forms/answer', {
-              method : 'POST',
-              headers:{
-                'Content-Type' : 'application/json'
-              },
-              body:JSON.stringify(data),
-            });
-
-            const jsonData = await res.json();
-            alert('Respuesta registrada con éxito.')
-            console.log(jsonData);
-            location.reload();
-
-        }catch(error){
-            console.log(error)
-        }
-    }
-
-  </script>
-
-  <script>
-    let sidebar = document.querySelector(".sidebar");
-    let closeBtn = document.querySelector("#btn");
-    let searchBtn = document.querySelector(".bx-search");
-   
-  
-
-    closeBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-      menuBtnChange();//calling the function(optional)
-    });
-
-    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
-      sidebar.classList.toggle("open");
-      menuBtnChange(); //calling the function(optional)
-    });
-
-    // following are the code to change sidebar button(optional)
-    function menuBtnChange() {
-      if (sidebar.classList.contains("open")) {
-        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-      } else {
-        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
-      }
-    }
-
-
-
-
-  </script>
 </body>

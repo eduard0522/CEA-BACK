@@ -1,6 +1,5 @@
-<title>Mis Asignaciones</title>
-<link rel="stylesheet" href="/css/asignaciones.css">
-
+<title> Formularios</title>
+<link rel="stylesheet" href="/css/actividades.css">
 
 <body>
   <div class="sidebar">
@@ -22,7 +21,6 @@
         </a>
          <span class="tooltip">Inicio</span>
       </li>
-      
      <li>
        <a href="#">
          <i class='bx bx-info-circle' ></i>
@@ -61,36 +59,28 @@
   </div>
   <section class="home-section">
       <header>
-        <p>Sistema regional de cooperación para la vigilacion de la seguridad operacional, planificacion de la vigilancia basada en riesgos (OPS)</p>
+        <p>Empresa Avianca</p>
+        <div class="hora">
+            <span>19 de abril de 2024, </span>
+            <span>12:30 pm</span>
+        </div>
       </header>
 
 
       <main>
-        <h3>Asignaciones:</h3>
+        <h3>Actividades:  </h3>
 
         <section class="panel">
-            <div class="box">
-                <img src="img/avianca.png" alt="">
-            </div>
-            <div class="box">
-              <img src="img/american.png" alt="">
-                
-            </div>
-            <div class="box">
-              <img src="img/wingo.png" alt="">
-               
-            </div>
+           
         </section>
       </main>
+
+  
 
       <footer>
         <p>Hecho por SolutionCode grupo de desarroladores de Sotfware | Aeronautica Civil de Colombia | Deimos v1.0</p>
       </footer>
   </section>
-
-
-
-
 
   <script>
   let sidebar = document.querySelector(".sidebar");
@@ -114,6 +104,61 @@
    }else {
      closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
    }
+  }
+
+    const d = document;
+    const panel = d.querySelector('.panel');
+    d.addEventListener('DOMContentLoaded' , async  (e) => {
+    const Token  = localStorage.getItem('Token');
+    const id = localStorage.getItem('id');
+    const data = await  getFormats(Token,id);
+    const formatos = data.data.formatos[0];
+    const formularios = data.data.formularios[0];
+  console.log(formatos[0].nombre)
+
+    for(const formato of formatos){
+
+         let FormatosHtml = `
+             <div class="box">
+                <p>${formato.nombre}</p>
+                 <ul class = formato${formato.id_formato}> 
+                </ul>
+                <button class="button">Llenar formulario</button>
+            </div>
+             `
+
+             panel.innerHTML = FormatosHtml;
+    }
+
+     for(const formulario of formularios){
+
+        let li = d.createElement("li");
+        li.classList.add(`${formulario.id_formulario}`)
+        li.innerHTML = ` <a href="/forms/orp/status/1/1"> ${formulario.nombre} </a>`
+        const formatoId = `.formato${formulario.formato_id}`
+        const formato = d.querySelector(formatoId)
+        formato.appendChild(li);
+    }
+  });
+
+  async function getFormats(token,id){
+      try{
+        const data = {
+          user:id,
+          company:1
+        }
+        let res = await fetch( 'formatos', {
+          method : 'POST',
+          headers:{
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        let resJson = await res.json();
+        return resJson;
+      }catch(error){
+          console.log(error);
+      }
   }
   </script>
 </body>

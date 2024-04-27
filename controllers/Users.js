@@ -1,4 +1,4 @@
-import { CreateUser, getAllUsers} from "../services/Users.js";
+import { CreateUser, getAllUsers,getCompaniesUser} from "../services/Users.js";
 import { v4 as uuidV4 } from "uuid";
 import { encrypt } from "../helpers/handleBycript.js";
 
@@ -50,4 +50,35 @@ export async function getAllUsersController (req,res){
     return res.json({usuarios:getUsers})
   } catch (error) {
     return res.json({status:500 , message:'Ha ocurrido un error en el servidor.'});  }
+}
+
+
+
+export async function getCompaniesByUserIdController(req,res) {
+  try {
+    const {id} = req.body;
+    if(!id){
+      return res.status(404).json({status:404 , message : 'No pueden quedar campos vacios, verifica la información e intente de nuevo.'})
+    }
+    const getUser = await getCompaniesUser(id);
+
+    if(!getUser){
+      return res.json({status:404, message:'Ha ocurrido un error inesperado, intente de nuevo mas tarde.'});
+    }
+    /*   return res.render('inspector/inicio', {
+      data : getUser[0]
+    });  */
+ 
+     return res.status(200).json({
+      status:200,
+      mensaje: 'Datos obtenidos con éxito.',
+      data : getUser,
+    });  
+  
+    
+  } catch (error) {
+    console.log(error);
+    return res.json({status:500 , message:'Ha ocurrido un error inesperado, intente de nuevo mas tarde.'}); 
+  }
+
 }
